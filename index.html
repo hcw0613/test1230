@@ -51,7 +51,47 @@
             });                         
         });         
     </script>
+===================================================================================================================
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCWqzUBy3E1kvC84G41awXItLguOy0arb0",
+    authDomain: "w1216-91aee.firebaseapp.com",
+    databaseURL: "https://w1216-91aee.firebaseio.com",
+    projectId: "w1216-91aee",
+    storageBucket: "w1216-91aee.appspot.com",
+    messagingSenderId: "191726059177",
+    appId: "1:191726059177:web:1780ea70cde7c78c1df3b8"
+    };
+    firebase.initializeApp(config);
+  </script>
 
+    <script>
+        $(document).ready(function(){  
+            $("#SignIn").click(function(){
+                var email         = $('#loginEmail').val();
+                var password    = $('#loginPassword').val();
+                firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+              // Handle Errors here.
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ...
+              alert(errorMessage)
+            })
+            });
+            var userLogin;
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          userLogin = user;
+          alert("User is logined")
+        } else {
+          userLogin = null;
+          alert("User is not logined yet.");
+        }
+      });
+      </script>
 </head>
 
 <body>
@@ -95,19 +135,16 @@
             <h5 class="card-title text-center">LOG IN</h5>
             <form class="form-signin">
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">Email address</label>
+                <input type="email" id="loginEmail" class="form-control" placeholder="Email address" required autofocus>
+                <label for="loginEmail">Email address</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+                <label for="loginPassword">Password</label>
               </div>
 
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Remember password</label>
-              </div>
+              
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">LOG IN</button>
               <hr class="my-4">
               <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
