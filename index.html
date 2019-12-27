@@ -91,6 +91,11 @@
           alert("User is not logined yet.");
         }
       });
+       $("#getUID").click(function(){
+              if (userLogin)
+                alert(userLogin['uid']);
+            });                         
+        });   
       </script>
 </head>
 
@@ -114,6 +119,7 @@
         </ul>
       </div>
     </div>
+    <button id="getUID">取得UID</button>
   </nav>
 
   <header class="masthead text-center text-white" id="HR">
